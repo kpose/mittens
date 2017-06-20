@@ -1,0 +1,23 @@
+{
+  "name": "mittens",
+  "version": "1.0.0",
+  "description": "mittens beta app",
+  "main": "server.js",
+  "scripts": {
+    "test": "server.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/kpose/mittensapp"
+  },
+  "keywords": [
+    "mittens"
+  ],
+  "author": "3d.daddy",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  }
+}

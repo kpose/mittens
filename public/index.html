@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html ng-app="mittens">
+<head>
+	<title>Mittens Beta App Version</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript">
+		var app = angular.module('mittens', []);
+
+		app.controller('MittensCtrl', function($scope, $http) {
+
+			$scope.submitNewMeow = function() {
+				$http.post('/meows', {newMeow: $scope.newMeow}).then(function() {
+					alert('SUCCESS!');
+				});
+			};
+			
+
+			$http.get('/meows').then(function(response) {
+
+				$scope.meows = response.data;
+
+			});
+		});
+
+	</script>
+	
+</head>
+<body ng-controller="MittensCtrl">
+	<h1 class="page-title">Mittens</h1>
+	<div class="row feed">
+		<div class="col-md-4">
+			<h2>Login:</h2>
+			<br>
+			<input type="text" size="30" placeholder="Username">
+			<br><br>
+			<input type="password" size="30" placeholder="Password">
+		</div>
+		<div class="col-md-8">
+			<div class="new-meow">
+				<input type="text" class ="form-control" ng-model= "newMeow" placeholder="Enter a new Meow">
+				<button class= "btn" type="button" ng-click="submitNewMeow()">Meow it</button>
+			</div>
+			<h3 ng-repeat="meow in meows">   
+				<span class= "glyphicon glyphicon-user" aria-hidden="true"></span>
+				{{ meow }}
+			</h3> 
+		</div>
+	</div>
+</body>
+</html>
