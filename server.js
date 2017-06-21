@@ -58,7 +58,7 @@ app.put('/meows/remove', function(req, res, next){
 });
 
 app.listen(3000, function () {
-	console.log('Example app listening on port 3000!')
+	console.log('Mittens app listening on port 3000!')
 });
 
 
