@@ -12,16 +12,30 @@
 
 			$scope.submitNewMeow = function() {
 				$http.post('/meows', {newMeow: $scope.newMeow}).then(function() {
-					alert('SUCCESS!');
+					getMeows();
+					$scope.newMeow = ' ';
 				});
 			};
+
+			$scope.removeMeow = function(meow) {
+				$http.put('/meows/remove', {meow: meow}).then(function() {
+					getMeows();					
+				});
+
+			};
+ 
+			function getMeows() {
+				$http.get('/meows').then(function(response) {
+
+					$scope.meows = response.data;
+
+				});
+			}
+
+			getMeows();
 			
 
-			$http.get('/meows').then(function(response) {
-
-				$scope.meows = response.data;
-
-			});
+			
 		});
 
 	</script>
@@ -45,6 +59,7 @@
 			<h3 ng-repeat="meow in meows">   
 				<span class= "glyphicon glyphicon-user" aria-hidden="true"></span>
 				{{ meow.text }}
+				<a href ng-click="removeMeow(meow)"><span class= "glyphicon glyphicon-remove" aria-hidden="true"></a>
 			</h3> 
 		</div>
 	</div>
