@@ -5,10 +5,23 @@
 	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="angular.min.js"></script>
+	<script type="text/javascript" src="angular-route.js"></script>
 	<script type="text/javascript">
-		var app = angular.module('mittens', []);
+		var app = angular.module('mittens', ['ngRoute']);
 
-		app.controller('MittensCtrl', function($scope, $http) {
+		app.config(function($routeProvider, $locationProvider) {
+			$routeProvider
+			.when('/', {
+			    templateUrl: 'home.html',
+			    controller: 'HomeController',
+			})
+			.when('/signup', {
+			    templateUrl: 'signup.html',
+			    controller: 'SignupController',
+			});
+		}); 
+
+		app.controller('HomeController', function($scope, $http) {
 
 			$scope.submitNewMeow = function() {
 				$http.post('/meows', {newMeow: $scope.newMeow}).then(function() {
@@ -38,30 +51,24 @@
 			
 		});
 
+		app.controller('SignupController', function($scope, $http) { 
+			$scope.submitSignup = function() {
+	  	 		var newUser = {
+	  				username: $scope.username,
+	  				password: $scope.password
+				};
+				$http.post('/users', newUser).then(function() {
+					alert('SUCCESS');				
+				})
+			}
+		}); 
+
 	</script>
 	
 </head>
-<body ng-controller="MittensCtrl">
+<body>
 	<h1 class="page-title">Mittens</h1>
-	<div class="row feed">
-		<div class="col-md-4">
-			<h2>Login:</h2>
-			<br>
-			<input type="text" size="30" placeholder="Username">
-			<br><br>
-			<input type="password" size="30" placeholder="Password">
-		</div>
-		<div class="col-md-8">
-			<div class="new-meow">
-				<input type="text" class ="form-control" ng-model= "newMeow" placeholder="Enter a new Meow">
-				<button class= "btn" type="button" ng-click="submitNewMeow()">Meow it</button>
-			</div>
-			<h3 ng-repeat="meow in meows">   
-				<span class= "glyphicon glyphicon-user" aria-hidden="true"></span>
-				{{ meow.text }}
-				<a href ng-click="removeMeow(meow)"><span class= "glyphicon glyphicon-remove" aria-hidden="true"></a>
-			</h3> 
-		</div>
-	</div>
+	<div ng-view></div>
+
 </body>
-</html>
+</html> 
