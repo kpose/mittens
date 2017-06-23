@@ -32,14 +32,22 @@
 		app.controller('HomeController', function($rootScope, $scope, $http, $cookies) {
 
 			$scope.submitNewMeow = function() {
-				$http.post('/meows', {newMeow: $scope.newMeow}).then(function() {
+				$http.post('/meows',
+				    {newMeow: $scope.newMeow}, 
+				    {headers: {
+				    	'authorization': $rootScope.token
+				    }}).then(function() {
 					getMeows();
 					$scope.newMeow = ' ';
 				});
 			};
 
 			$scope.removeMeow = function(meow) {
-				$http.put('/meows/remove', {meow: meow}).then(function() {
+				$http.put('/meows/remove', 
+					{meow: meow},
+					{headers: {
+				    	'authorization': $rootScope.token
+				    }}).then(function() {
 					getMeows();					
 				});
 
@@ -48,17 +56,22 @@
 
 			$scope.signin = function() {
 				$http.put('/users/signin', {username: $scope.username, password: $scope.password})
-					.then(function(res) {
-					console.log(res.data.token);
+					.then(function(res) {					
 					$cookies.put('token', res.data.token);
 					$cookies.put('currentUser', $scope.username);
 					$rootScope.token = res.data.token;
-					$rootScope.currentUser = $scope.username;
-					alert('SUCCESSFULLY SIGNED IN');
+					$rootScope.currentUser = $scope.username;			
 					}, function(err){
 						alert('WRONG LOGIN CREDENTIALS');
 					});
-			}
+			};
+
+			$scope.logout = function() {
+				$cookies.remove('token');
+				$cookies.remove('currentUser');
+				$rootScope.token = null;
+				$rootScope.currentUser = null;
+			};
 
 
  
