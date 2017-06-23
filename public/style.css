@@ -3,19 +3,47 @@
 		margin-right: 100px;
 		margin-top: 50px;			
 		min-height: 600px;
+		font-family: 'Corben', Georgia,Times, serif;
+		text-shadow: 1px 1px 1px #ccc;
+		background:  url(http://meowgifs.com/wp-content/uploads/2013/12/meow-kitten.gif) no-repeat center center fixed; 
+  		background-size: cover;
+		
 	}
 
 	.feed h3{
 		border: 1px solid black;
 		padding: 20px;
+		font-family: 'Corben', Georgia,Times, serif;
+		text-shadow: 1px 1px 1px #ccc;
+		background-color: #33DDFF; 
+  		background-size: cover;
+		
 
 	}
 	.page-title{
 		margin-left: 100px;
+		font-family: 'Corben', Georgia,Times, serif;
+		text-shadow: 1px 1px 1px #ccc;
+		text-align: center;
+
+		
+		
+		
 	}
 
 	.new-meow {
 		border: 1px solid black;
 		padding: 20px;
 		width: 100%;
+		font-family: 'Corben', Georgia,Times, serif;
+		box-shadow: 0 0 1em 1em #ccc;
+		background-color: #A1E575;
 	}
+
+
+	.footer {
+		text-align: center;
+
+	}
+
+
