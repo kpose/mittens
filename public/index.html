@@ -36,6 +36,18 @@
 				});
 
 			};
+
+
+			$scope.signin = function() {
+				$http.put('/users/signin', {username: $scope.username, password: $scope.password})
+					.then(function() {
+					alert('SUCCESSFULLY SIGNED IN');
+					}, function(err){
+						alert('WRONG LOGIN CREDENTIALS');
+					});
+			}
+
+
  
 			function getMeows() {
 				$http.get('/meows').then(function(response) {
@@ -67,7 +79,7 @@
 	
 </head>
 <body>
-	<h1 class="page-title">Mittens</h1>
+	<h1 class="page-title"><a href="#/">Mittens</a></h1>
 	<div ng-view></div>
 
 </body>
