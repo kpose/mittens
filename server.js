@@ -3,8 +3,11 @@ var MongoClient = require('mongodb').MongoClient;
 var ObjectId = require('mongodb').ObjectId;
 var bodyParser = require('body-parser');
 var bcrypt = require('bcryptjs');
+var jwt = require('jwt-simple');
 var app = express();
 
+
+var JWT_SECRET = 'catsmeow';
 
 var db = null;
 
@@ -92,7 +95,8 @@ app.put('/users/signin', function(req, res, next) {
 
 			bcrypt.compare(req.body.password, user.password, function(err, result) {
 				if (result) {
-					return res.send();
+					var token = jwt.encode(user, JWT_SECRET);
+					return res.json({token: token});
 				} else {
 					return res.status(400).send();	
 				}

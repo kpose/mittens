@@ -6,8 +6,9 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 	<script type="text/javascript" src="angular.min.js"></script>
 	<script type="text/javascript" src="angular-route.js"></script>
+	<script type="text/javascript" src="angular-cookies.js"></script>
 	<script type="text/javascript">
-		var app = angular.module('mittens', ['ngRoute']);
+		var app = angular.module('mittens', ['ngRoute', 'ngCookies']);
 
 		app.config(function($routeProvider, $locationProvider) {
 			$routeProvider
@@ -21,7 +22,14 @@
 			});
 		}); 
 
-		app.controller('HomeController', function($scope, $http) {
+		app.run(function($rootScope, $cookies) {
+			if ($cookies.get('token') && $cookies.get('currentUser')) {
+				$rootScope.token = $cookies.get('token');
+				$rootScope.currentUser = $cookies.get('currentUser');	
+			}
+		});
+
+		app.controller('HomeController', function($rootScope, $scope, $http, $cookies) {
 
 			$scope.submitNewMeow = function() {
 				$http.post('/meows', {newMeow: $scope.newMeow}).then(function() {
@@ -40,7 +48,12 @@
 
 			$scope.signin = function() {
 				$http.put('/users/signin', {username: $scope.username, password: $scope.password})
-					.then(function() {
+					.then(function(res) {
+					console.log(res.data.token);
+					$cookies.put('token', res.data.token);
+					$cookies.put('currentUser', $scope.username);
+					$rootScope.token = res.data.token;
+					$rootScope.currentUser = $scope.username;
 					alert('SUCCESSFULLY SIGNED IN');
 					}, function(err){
 						alert('WRONG LOGIN CREDENTIALS');
@@ -58,7 +71,7 @@
 			}
 
 			getMeows();
-			
+	 		
 
 			
 		});
