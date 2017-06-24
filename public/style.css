@@ -46,4 +46,21 @@
 
 	}
 
+	.register {
+		background:  url(http://meowgifs.com/wp-content/uploads/2013/12/meow-kitten.gif) no-repeat center center fixed; 
+  		background-size: cover;
+  		color: red;
+  		border: solid 1px;
+  		text-transform: capitalize;
+
+	}
+
+	.logout {
+		color: red;
+	}
+
+	.member {
+		color: #3333ff;
+	}
+
 

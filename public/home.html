@@ -11,12 +11,12 @@
 			<br><br>		
 			<button type="button" ng-click="signin()">Sign In</button>
 			<br><br>
-			<a href="#!/signup">Not a member? Signup</a>
+			<a href="#!/signup" class="member">Not a member? Signup</a>
 		</div>
 		<div ng-show="currentUser">
 			Hello, {{ currentUser }}.
 			<br><br>
-			<a href ng-click="logout()">LOGOUT</a>
+			<a href ng-click="logout()" class="logout">LOGOUT</a>
 		</div>
 	</div>
 	<div class="col-md-8">
